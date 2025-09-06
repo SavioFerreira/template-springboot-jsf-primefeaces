@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.1.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<groupId>com.sfc</groupId>
+	<artifactId>sfc-com</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>sfc-com</name>
+	<description>Jsf PrimeFaces</description>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>17</java.version>
+		<maven.compiler.target>17</maven.compiler.target>
+    	<maven.compiler.source>17</maven.compiler.source>		
+		<jakarta.platform.version>9.1.0</jakarta.platform.version>
+		<jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
+		<hibernate.validator.version>6.2.0.Final</hibernate.validator.version>
+	</properties>
+		
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>                
+            </exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!--
+		<dependency>
+	      	<groupId>org.springframework.boot</groupId>
+	      	<artifactId>spring-boot-starter-security</artifactId>
+	    </dependency>
+		 -->
+	            
+		<!-- Driver do PostgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.4</version>
+			<scope>runtime</scope> 
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator.version}</version>
+			<scope>compile</scope>			
+		</dependency>
+		
+		<!-- JSF + PRIMEFACES -->		
+		
+		<dependency>
+		   <groupId>jakarta.platform</groupId>
+		   <artifactId>jakarta.jakartaee-web-api</artifactId>
+		   <version>${jakarta.platform.version}</version>
+		   <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>10.0.0</version>
+            <classifier>jakarta</classifier>
+        </dependency>  
+		
+		
+		<!-- Monitoramento Aplicação -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>		
+
+	</dependencies>
+		
+	<repositories>
+		<repository>
+		    <id>maven.oracle.com</id>
+		    <releases>
+		      <enabled>true</enabled>
+		    </releases>
+		    <snapshots>
+		      <enabled>false</enabled>
+		    </snapshots>
+		    <url>https://maven.oracle.com</url>
+		    <layout>default</layout>
+	  	</repository>
+		<repository>
+			<id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo1.maven.org/maven2/</url>
+            <layout>default</layout>                                    
+        </repository>		        
+        <repository>
+            <id>central-jcenter</id>
+            <name>jcenter</name>
+            <url>https://jcenter.bintray.com</url>                                    
+        </repository>
+        <repository>
+			<id>spring-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>https://repo.spring.io/snapshot</url>
+		</repository>
+		<repository>
+            <id>spring-repo</id>
+            <url>https://repo.spring.io/release</url>
+        </repository>        
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>https://repository.primefaces.org</url>                        
+        </repository>
+        <repository>
+            <id>jboss-repo</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>            
+        </repository>	
+    </repositories> 
+    
+    
+	<build>
+		<finalName>${project.name}</finalName>
+		<plugins>
+			<plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>4.2.0.Final</version>
+                <configuration>
+                    <jboss-home>C:/teste/server/wildfly-29.0.1.Final</jboss-home>
+                    <modules-path>C:/teste/server/wildfly-29.0.1.Final/modules</modules-path>
+                    <add-user>
+                        <users>
+                            <user>
+                                <username>admin</username>
+                                <password>masterkey</password>
+                            </user>
+                        </users>
+                    </add-user>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+		</plugins>
+	</build>
+
+</project>
